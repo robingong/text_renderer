@@ -1,6 +1,7 @@
 # Text Renderer
 Generate text images for training deep learning OCR model (e.g. [CRNN](https://github.com/bgshih/crnn)).
 Support both latin and non-latin text.
+单个字体可以[参考] https://blog.csdn.net/meyh0x5vDTk48P2/article/details/79848753
 
 # Setup
 - Ubuntu 16.04
