@@ -32,9 +32,9 @@ cfg = load_config(flags.config_file)
 fonts = font_utils.get_font_paths(flags.fonts_dir)
 bgs = utils.load_bgs(flags.bg_dir)
 
-corpus = get_corpus(flags.corpus_mode, flags.chars_file, flags.corpus_dir, flags.length)
+corpus = get_corpus(flags.corpus_mode, flags.chars_file, flags.corpus_dir, flags.length) #todo alex
 
-renderer = Renderer(corpus, fonts, bgs, cfg,
+renderer = Renderer(corpus, fonts, bgs, cfg, #todo alex
                     height=flags.img_height,
                     width=flags.img_width,
                     clip_max_chars=flags.clip_max_chars,

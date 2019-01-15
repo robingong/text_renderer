@@ -19,20 +19,20 @@ def parse_args():
 
     parser.add_argument('--img_width', type=int, default=256)
 
-    parser.add_argument('--chars_file', type=str, default='./data/chars/chn.txt',
+    parser.add_argument('--chars_file', type=str, default='./data/chars/thai.txt', # './data/chars/chn.txt'
                         help='Chars allowed to be appear in generated images.')
 
     parser.add_argument('--config_file', type=str, default='./configs/default.yaml',
                         help='Set the parameters when rendering images')
 
-    parser.add_argument('--fonts_dir', type=str, default='./data/fonts/chn',
+    parser.add_argument('--fonts_dir', type=str, default='./data/fonts/thai', # './data/fonts/chn'
                         help='Add fonts you want to use in this folder')
 
     parser.add_argument('--bg_dir', type=str, default='./data/bg',
                         help="Some text images(according to your config in yaml file) will"
                              "use pictures in this folder as background")
 
-    parser.add_argument('--corpus_dir', type=str, default="./data/corpus",
+    parser.add_argument('--corpus_dir', type=str, default="./data/corpus_thai", # "./data/corpus"
                         help='When corpus_mode is chn or eng, text on image will randomly selected from corpus.'
                              'Recursively find all txt file in corpus_dir')
 
