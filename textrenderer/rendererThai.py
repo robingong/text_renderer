@@ -43,16 +43,17 @@ class Renderer(object):
             self.font_chars = get_fonts_chars(self.fonts, corpus.chars_file)
 
     def gen_img(self):
+        print("-->>rendererThai gen_img begin")
         word, font, word_size = self.pick_font()
         self.dmsg("after pick font")
 
         # Background's height should much larger than raw word image's height,
         # to make sure we can crop full word image after apply perspective
         bg = self.gen_bg(width=word_size[0] * 8, height=word_size[1] * 8)
-        word_img, text_box_pnts, word_color = self.draw_text_on_bg(word, font, bg)
+        word_img, text_box_pnts, word_color = self.draw_text_on_bg(word, font, bg) # todo errir is here by alex
 
         self.dmsg("After draw_text_on_bg")
-
+        print("------------>>rendererThai gen_img 500")
         if apply(self.cfg.line):
             word_img, text_box_pnts = self.liner.apply(word_img, text_box_pnts, word_color)
             self.dmsg("After draw line")
@@ -74,8 +75,8 @@ class Renderer(object):
                                              max_z=self.cfg.perspective_transform.max_z,
                                              gpu=self.gpu)
 
-        self.dmsg("After perspective transform")
-
+        # self.dmsg("After perspective transform")
+        # print("------------>>rendererThai gen_img 1000")
         if self.debug:
             # word_img = draw_box(word_img, img_pnts_transformed, (0, 255, 0))
             # word_img = draw_box(word_img, text_box_pnts_transformed, (0, 0, 255))
@@ -116,6 +117,7 @@ class Renderer(object):
             word_img = self.apply_sharp(word_img)
             self.dmsg("After sharp")
 
+        # print("==>>rendererThai gen_img end")
         return word_img, word
 
     def dmsg(self, msg):
@@ -442,6 +444,8 @@ class Renderer(object):
             size: word size, removed offset (width, height)
         """
         word = self.corpus.get_sample()
+        # read words from predifined files by alex
+
 
         if self.clip_max_chars and len(word) > self.max_chars:
             word = word[:self.max_chars]

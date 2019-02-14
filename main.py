@@ -19,7 +19,7 @@ from parse_args import parse_args
 import libs.utils as utils
 import libs.font_utils as font_utils
 from textrenderer.corpus import RandomCorpus, ChnCorpus, EngCorpus, get_corpus
-from textrenderer.renderer import Renderer
+from textrenderer.rendererThai import Renderer
 from tenacity import retry
 
 lock = mp.Lock()
@@ -66,7 +66,7 @@ def start_listen(q, fname):
 def gen_img_retry(renderer):
     try:
         return renderer.gen_img()
-    except Exception as e:
+    except Exception as e: #alex !
         print("Retry gen_img: %s" % str(e))
         raise Exception
 
@@ -76,13 +76,15 @@ def generate_img(img_index, q=None):
     # Make sure different process has different random seed
     np.random.seed()
 
-    im, word = gen_img_retry(renderer)
+    im, word = gen_img_retry(renderer) #im.shape = (32, 256, 3)  when error
 
     base_name = '{:08d}'.format(img_index)
 
     if not flags.viz:
         fname = os.path.join(flags.save_dir, base_name + '.jpg')
-        cv2.imwrite(fname, im)
+        print("-->> fname= ",fname)
+        print("-->>im.shape= ",im.shape)
+        cv2.imwrite(fname, im) #todo  by alex
 
         label = "{} {}".format(base_name, word)
 

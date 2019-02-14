@@ -3,6 +3,8 @@ import numpy as np
 import random
 import glob
 
+import linecache
+
 from libs.utils import prob, load_chars
 
 
@@ -54,6 +56,60 @@ class RandomCorpus(Corpus):
             word += random.choice(self.charsets)
         return word
 
+class ThaiCorpus(Corpus):
+    lineNumber = 0
+    corpusFileName = '/home/alex/source/text_renderer/data/corpus_thai/labels.txt'
+    def load(self):
+        """
+        Load one corpus file as one line
+        load corpus from labels.txt
+        """
+        whole_line = ""
+        f = open(self.corpusFileName, 'r')
+        lineList = f.readlines()
+        for l in lineList:
+            whole_line = whole_line + l +"\r\n"
+            self.lineNumber = self.lineNumber + 1
+            self.corpus.append(whole_line)
+        print("-->>whole_line: ",whole_line)
+        # for i, p in enumerate(self.corpus_path):
+        #     print_end = '\n' if i == len(self.corpus_path) - 1 else '\r'
+        #     print("Loading thai corpus: {}/{}".format(i + 1, len(self.corpus_path)), end=print_end)
+        #     with open(p, encoding='utf-8') as f:
+        #         data = f.readlines()
+        #
+        #     lines = []
+        #     for line in data:
+        #         line_striped = line.strip()
+        #         line_striped = line_striped.replace('\u3000', '')
+        #         line_striped = line_striped.replace('&nbsp', '')
+        #         line_striped = line_striped.replace("\00", "")
+        #
+        #         if line_striped != u'' and len(line.strip()) > 1:
+        #             lines.append(line_striped)
+        #
+        #     # 所有行合并成一行
+        #     split_chars = [',', '，', '：', '-', ' ', ';', '。']
+        #     splitchar = random.choice(split_chars)
+        #     whole_line = splitchar.join(lines)
+        #
+        #     # 在 crnn/libs/label_converter 中 encode 时还会进行过滤
+        #     whole_line = ''.join(filter(lambda x: x in self.charsets, whole_line))
+        #
+        #     if len(whole_line) > self.length:
+        #         self.corpus.append(whole_line)
+
+    def get_sample(self):
+        # 每次 gen_word，随机选一个预料文件，随机获得长度为 word_length 的字符
+        # line = random.choice(self.corpus)
+        #
+        # start = np.random.randint(0, len(line) - self.length)
+        #
+        # word = line[start:start + self.length]
+        sampleLineNumber = random.randrange(1,self.lineNumber)
+        word = linecache.getline(self.corpusFileName,sampleLineNumber)
+        print("-->>word:",word)
+        return word
 
 class EngCorpus(Corpus):
     def load(self):
@@ -122,10 +178,13 @@ class ChnCorpus(Corpus):
 
 
 def get_corpus(corpus_mode: str, chars_file: str, corpus_dir: str, length: int):
+    # -->>corpus_mode= chn ,chars_file= ./data/chars/chn.txt ,corpus_dir= ./data/corpus ,length= 10
+    print("-->>corpus_mode=",corpus_mode,",chars_file=",chars_file,",corpus_dir=",corpus_dir,",length=",length)
     corpus_classes = {
         "random": RandomCorpus,
         "chn": ChnCorpus,
-        "eng": EngCorpus
+        "eng": EngCorpus,
+        "thai": ThaiCorpus # alex
     }
 
     corpus_class = corpus_classes[corpus_mode]
