@@ -68,7 +68,7 @@ class ThaiCorpus(Corpus):
         f = open(self.corpusFileName, 'r')
         lineList = f.readlines()
         for l in lineList:
-            whole_line = whole_line + l +"\r\n"
+            whole_line = whole_line + l +"\n"
             self.lineNumber = self.lineNumber + 1
             self.corpus.append(whole_line)
         print("-->>whole_line: ",whole_line)
@@ -183,8 +183,8 @@ def get_corpus(corpus_mode: str, chars_file: str, corpus_dir: str, length: int):
     corpus_classes = {
         "random": RandomCorpus,
         "chn": ChnCorpus,
-        "eng": EngCorpus,
-        "thai": ThaiCorpus # alex
+        "eng": EngCorpus
+        # ,"thai": ThaiCorpus # alex
     }
 
     corpus_class = corpus_classes[corpus_mode]

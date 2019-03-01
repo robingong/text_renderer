@@ -43,6 +43,7 @@ class Renderer(object):
             self.font_chars = get_fonts_chars(self.fonts, corpus.chars_file)
 
     def gen_img(self):
+        print("-->> in renderer, gen_img begin ....")
         word, font, word_size = self.pick_font()
         self.dmsg("after pick font")
 
@@ -115,7 +116,7 @@ class Renderer(object):
         if apply(self.cfg.sharp):
             word_img = self.apply_sharp(word_img)
             self.dmsg("After sharp")
-
+        print("-->> in renderer, gen_img end ....")
         return word_img, word
 
     def dmsg(self, msg):

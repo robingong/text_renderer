@@ -53,7 +53,7 @@ class Renderer(object):
         word_img, text_box_pnts, word_color = self.draw_text_on_bg(word, font, bg) # todo errir is here by alex
 
         self.dmsg("After draw_text_on_bg")
-        print("------------>>rendererThai gen_img 500")
+        # print("------------>>rendererThai gen_img 500")
         if apply(self.cfg.line):
             word_img, text_box_pnts = self.liner.apply(word_img, text_box_pnts, word_color)
             self.dmsg("After draw line")

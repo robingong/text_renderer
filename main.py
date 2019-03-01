@@ -19,7 +19,8 @@ from parse_args import parse_args
 import libs.utils as utils
 import libs.font_utils as font_utils
 from textrenderer.corpus import RandomCorpus, ChnCorpus, EngCorpus, get_corpus
-from textrenderer.rendererThai import Renderer
+from textrenderer.renderer import Renderer
+# from textrenderer.rendererThai import Renderer
 from tenacity import retry
 
 lock = mp.Lock()
@@ -82,10 +83,13 @@ def generate_img(img_index, q=None):
 
     if not flags.viz:
         fname = os.path.join(flags.save_dir, base_name + '.jpg')
+        txtname = os.path.join(flags.save_dir, base_name + '.txt')
         print("-->> fname= ",fname)
         print("-->>im.shape= ",im.shape)
         cv2.imwrite(fname, im) #todo  by alex
-
+        txtfile = open(txtname,"w")
+        txtfile.write(word)
+        txtfile.close()
         label = "{} {}".format(base_name, word)
 
         if q is not None:
