@@ -17,7 +17,7 @@ def parse_args():
 
     parser.add_argument('--img_height', type=int, default=32)
 
-    parser.add_argument('--img_width', type=int, default=256)
+    parser.add_argument('--img_width', type=int, default=256) # 256 适合3英文单词,64适合单英文单词
 
     parser.add_argument('--chars_file', type=str, default='./data/chars/thai.txt', # './data/chars/chn.txt'
                         help='Chars allowed to be appear in generated images.')
@@ -36,7 +36,7 @@ def parse_args():
                         help='When corpus_mode is chn or eng, text on image will randomly selected from corpus.'
                              'Recursively find all txt file in corpus_dir')
 
-    parser.add_argument('--corpus_mode', type=str, default='thai', choices=['random', 'chn', 'eng'], #default='chn'
+    parser.add_argument('--corpus_mode', type=str, default='thai', choices=['random', 'chn', 'eng','thai'], #default='chn'
                         help='Different corpus type have different load/get_sample method'
                              'random: random pick chars from chars file'
                              'chn: pick continuous chars from corpus'
@@ -57,7 +57,7 @@ def parse_args():
 
     parser.add_argument('--num_processes', type=int, default=None,
                         help="Number of processes to generate image. If None, use all cpu cores")
-
+    # None
     flags, _ = parser.parse_known_args()
     flags.save_dir = os.path.join(flags.output_dir, flags.tag)
 

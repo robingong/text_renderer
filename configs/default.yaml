@@ -1,6 +1,6 @@
 # Small font_size will make text looks like blured/prydown
 font_size:
-  min: 20 #15
+  min: 30 # 15
   max: 30
 
 # By default, text is drawed by Pillow with (https://stackoverflow.com/questions/43828955/measuring-width-of-text-python-pil)
@@ -50,7 +50,7 @@ seamless_clone:
   fraction: 0.5
 
 perspective_transform:
-  max_x: 25
+  max_x: 253
   max_y: 25
   max_z: 3
 
@@ -60,7 +60,7 @@ blur:
 
 # If an image is applied blur, it will not be applied prydown
 prydown:
-  enable: true
+  enable: false
   fraction: 0.03
   max_scale: 1.5 # Image will first resize to 1.5x, and than resize to 1x
 

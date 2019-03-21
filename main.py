@@ -19,8 +19,8 @@ from parse_args import parse_args
 import libs.utils as utils
 import libs.font_utils as font_utils
 from textrenderer.corpus import RandomCorpus, ChnCorpus, EngCorpus, get_corpus
-from textrenderer.renderer import Renderer
-# from textrenderer.rendererThai import Renderer
+# from textrenderer.renderer import Renderer
+from textrenderer.rendererThai import Renderer
 from tenacity import retry
 
 lock = mp.Lock()
@@ -105,7 +105,6 @@ def generate_img(img_index, q=None):
                       end=print_end)
     else:
         utils.viz_img(im)
-
 
 def sort_labels(tmp_label_fname, label_fname):
     lines = []

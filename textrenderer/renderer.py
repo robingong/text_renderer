@@ -50,6 +50,9 @@ class Renderer(object):
         # Background's height should much larger than raw word image's height,
         # to make sure we can crop full word image after apply perspective
         bg = self.gen_bg(width=word_size[0] * 8, height=word_size[1] * 8)
+
+
+        # alex
         word_img, text_box_pnts, word_color = self.draw_text_on_bg(word, font, bg)
 
         self.dmsg("After draw_text_on_bg")
@@ -80,10 +83,12 @@ class Renderer(object):
         if self.debug:
             # word_img = draw_box(word_img, img_pnts_transformed, (0, 255, 0))
             # word_img = draw_box(word_img, text_box_pnts_transformed, (0, 0, 255))
-            _, crop_bbox = self.crop_img(word_img, text_box_pnts_transformed)
+            _, crop_bbox = self.crop_img(word_img, text_box_pnts_transformed) # modify by alex
+
             # word_img = draw_bbox(word_img, crop_bbox, (255, 0, 0))
         else:
-            word_img, crop_bbox = self.crop_img(word_img, text_box_pnts_transformed)
+            word_img, crop_bbox = self.crop_img(word_img, text_box_pnts_transformed) # modify by alex
+
 
         self.dmsg("After crop_img")
 
@@ -164,17 +169,19 @@ class Renderer(object):
 
         # TODO: prevent text too small
         dst_height = random.randint(self.out_height // 4 * 3, self.out_height)
-
+        print("-->>dst_height=",dst_height)
         scale = max(bbox_height / dst_height, bbox_width / self.out_width)
 
         s_bbox_width = math.ceil(bbox_width / scale)
         s_bbox_height = math.ceil(bbox_height / scale)
 
+        print("-->>bbox=", bbox)
+
         s_bbox = (np.around(bbox[0] / scale),
                   np.around(bbox[1] / scale),
                   np.around(bbox[2] / scale),
                   np.around(bbox[3] / scale))
-
+        print("-->>s_bbox=", s_bbox)
         x_offset, y_offset = self.random_xy_offset(s_bbox_height, s_bbox_width, self.out_height, self.out_width)
 
         def int_around(val):
@@ -186,7 +193,7 @@ class Renderer(object):
             int_around(self.out_width * scale),
             int_around(self.out_height * scale)
         )
-
+        print("-->>dst_bbox=", dst_bbox)
         # It's important do crop first and than do resize for speed consider
         dst = img[dst_bbox[1]:dst_bbox[1] + dst_bbox[3], dst_bbox[0]:dst_bbox[0] + dst_bbox[2]]
 
@@ -223,7 +230,9 @@ class Renderer(object):
         bg_height = bg.shape[0]
         bg_width = bg.shape[1]
 
-        word_size = self.get_word_size(font, word)
+        word_size = self.get_word_size(font, word) # 数值越小 字越大 。 (122, 30) 不错
+        # word_size = (171, 18)#(128, 64)#(64, 32) # 171, 18 不错
+        print("-->>数值越小 字越大,word_size",word_size)
         word_height = word_size[1]
         word_width = word_size[0]
 
@@ -492,11 +501,14 @@ class Renderer(object):
             dst_text_pnts: points of text after apply perspective transform
         """
 
-        x = math_utils.cliped_rand_norm(0, max_x)
-        y = math_utils.cliped_rand_norm(0, max_y)
-        z = math_utils.cliped_rand_norm(0, max_z)
-
-        # print("x: %f, y: %f, z: %f" % (x, y, z))
+        # x = math_utils.cliped_rand_norm(0, max_x) by alex
+        # y = math_utils.cliped_rand_norm(0, max_y)
+        # z = math_utils.cliped_rand_norm(0, max_z)
+        x = -8.859902 # added by alex
+        y = -4.201476
+        z = 0.075911
+        print("max_x: %f, max_y: %f, max_z: %f" % (max_x, max_y, max_z))
+        print("x: %f, y: %f, z: %f" % (x, y, z))
 
         transformer = math_utils.PerspectiveTransform(x, y, z, scale=1.0, fovy=50)
 

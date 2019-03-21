@@ -11,7 +11,7 @@ from libs.font_utils import check_font_chars, load_font
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Find chars not support by some fonts')
     parser.add_argument('--chars_file', type=str, default='./data/chars/chn.txt')
-    parser.add_argument('--font_dir', type=str, default='./data/fonts/eng')
+    parser.add_argument('--font_dir', type=str, default='./data/fonts/eng') #eng
     parser.add_argument('--delete', action="store_true", default=False,
                         help='whether or not to delete font which not full support the chars_file')
 

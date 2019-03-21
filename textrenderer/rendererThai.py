@@ -495,9 +495,12 @@ class Renderer(object):
             dst_text_pnts: points of text after apply perspective transform
         """
 
-        x = math_utils.cliped_rand_norm(0, max_x)
-        y = math_utils.cliped_rand_norm(0, max_y)
-        z = math_utils.cliped_rand_norm(0, max_z)
+        # x = math_utils.cliped_rand_norm(0, max_x) by alex
+        # y = math_utils.cliped_rand_norm(0, max_y)
+        # z = math_utils.cliped_rand_norm(0, max_z)
+        x = -8.859902 # added by alex
+        y = -4.201476
+        z = 0.075911
 
         # print("x: %f, y: %f, z: %f" % (x, y, z))
 
